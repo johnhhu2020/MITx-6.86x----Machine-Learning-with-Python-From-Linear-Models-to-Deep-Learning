@@ -1,0 +1,566 @@
+---
+title: "MITx 6.86x -- Machine Learning with Python-From Linear Models to Deep Learning"
+author: "John HHU"
+date: "2023-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+
+
+
+
+
+
+MITx 6.86x -- Machine Learning with Python-From Linear Models to Deep Learning
+
+
+## Course
+/
+Course Overview
+/
+Course Overview, Calendar, and Grading Policy
+
+
+# 1. Course Introduction and Overview
+
+Have you ever wondered how your cellphone
+can detect objects and discriminate between boats
+and a bridge?
+Or were you ever surprised when Amazon
+was able to recommend you a book that you didn't even
+know that you wanted it.
+So those are just two examples of what machine learning
+technology can do for you today.
+But imagine what it can do in all other areas of our lives.
+And part of our job at MIT is actually
+to imagine this future.
+And here we're working on all different application
+of machine learning and AI, ranging from drug discovery,
+identifying who may be sick, or developing new robotics
+applications, or helping people to live happier and longer.
+So there are lots and lots of applications
+out there, but what's so interesting about it--
+that in terms of algorithms, there
+is a relatively small toolkit of algorithms
+you need to learn to understand how
+these different applications can work so nicely
+and be integrated in our daily life.
+So that's what this class is about--
+understanding this technology.
+And I hope that, by the end of this class,
+you would actually know how your cellphone can detect bridges.
+
+
+Hello.
+I'm Tommi Jaakola.
+I'm a professor here in computer science.
+And I'm going to be co-teaching this course with Professor
+Barzilay.
+I started my career as a theoretical physicist
+turned into a computational neuroscientist.
+And now I'm back in computer science.
+That path sort of reflects the diversity
+of tools, methods, concepts that are
+integral to machine learning.
+So let's talk a little bit more about the structure
+of the course and the basic layout of machine learning
+problems.
+So Professor Barzilay already mentioned
+that you really need to learn only a few basic machine
+learning algorithms in order to be
+able to solve realistic interesting problems
+in practice.
+So let's look at a little bit how these methods are laid out
+more broadly and how the course is structured accordingly.
+The biggest piece in terms of setting up tasks for machine
+learning methods it's called supervised learning.
+And I will use a simple S here for supervised.
+It is when you're given an example,
+such as an image, and a target, such as a label that it's
+a dog.
+And your task as a machine learning algorithm
+is to figure out how to produce that label from that image.
+So in this case, the examples--
+and machine learning methods always learn from examples.
+So in this case, the example has the correct answer
+already given.
+So you're learning essentially in their teacher-student setup.
+Those are supervised learning tasks.
+Now there is another piece here, which
+is called an unsupervised learning.
+And I will use US here as a place holder for that.
+Unsupervised learning is essentially a generalization
+of that, when you no longer are given the target exactly
+what you should do.
+So think about modeling a language.
+So the role of the machine learning method now
+is to try to generate natural language sentences.
+Or modeling images, its task is to learn
+based on just observing images, to reproduce
+such natural images, or molecules, or what have you.
+OK.
+So the major distinction between these two
+is that here what you need to produce
+is given explicitly as a target.
+Here, you need to figure out the mechanism
+of how to generate things.
+That's unsupervised learning.
+Now, finally, both of these are essentially
+just making predictions, trying to create examples
+or predicting what the label might be for an image, what
+the image is about.
+The third part is actually acting in the world.
+And I will use RL for reinforcement
+learning for short.
+It is when you're trying to figure out how
+to act optimally in the world.
+So it involves making predictions.
+So it involves aspects of these too, modeling the world.
+But also it has a goal.
+It is trying to achieve a certain objective.
+For example, a robot arm here trying to grasp an object,
+that can be formulated as a reinforcement learning
+task, where the method will try to figure out
+from the failure--
+it tries things.
+It may succeed or fail.
+And based on that, tries to figure out how to do it better.
+Now, the course here covers essentially
+the caricature versions of each of these pieces
+so that you learn the basic components.
+Lots of the interesting stuff here in terms
+of solving practical problems here
+happens in the mix of these categories.
+So the first three units in an increasing complexity
+try to figure out how to solve supervised learning
+tasks from a very simple linear classification
+method to more complex neural network algorithms.
+Here in an unsupervised learning,
+we talk about probabilistic models,
+how to generate examples, and look
+at things like mix and match.
+Finally, we will introduce you to basic reinforcement learning
+algorithms, what the problem is, and how to solve such problems.
+And overall, by learning all of these components,
+you will actually be able to mix and match
+these techniques to solve very interesting problems
+in practice.
+
+
+
+
+
+
+## Course  /  Unit 0. Brief Prerequisite Reviews, Homework 0, and Project 0  /  Brief Review of Vectors, Planes, and Optimization
+
+# 1. Brief Review of Vectors, Planes, and Optimization
+
+Hi.
+In this short video, we're going to talk
+about points and vectors and how they
+relate to machine learning.
+So first, the machine learning, there are two things.
+There are points-- data points which you have in your data
+sets, which you'll be working with.
+And then you also want to be able to describe them
+as how they relate in n-dimensional space.
+So let's start off with getting a distinction between the two.
+So if we draw a three-dimensional coordinate
+system, like so, we'll have a point here.
+We'll call it x.
+It might be 3, 2, 2.
+And this defines a point in our three-dimensional space.
+We can write three-dimensional space
+as this x lives in this three-dimensional space.
+We can also write this as a vector
+starting from the origin, where we start over here.
+And we view it in terms of a displacement from 0 comma
+0 comma 0.
+So we have both the idea of this vector,
+so this vector is x, which goes from 0 to this point.
+And we can also view it as just the point in space.
+In this course, we'll be viewing this description
+of a point and vector pretty much interchangeably.
+So let's write this vector as you'll
+commonly seen this course.
+So x here, we denote as all of its coordinates.
+So we can either write it like this, as a point,
+or like this, as a vector.
+And so it's important to note that if we index
+this by dimension, dimension xi is
+going to be the i-th coordinate in this vector.
+So let's say that xi is equal to x comma 2.
+And so this will be 1, 2.
+So it's also important to be able to understand how vectors
+can relate to each other.
+So, in particular, one thing you might be interested in
+is seeing how, if you add vector [INAUDIBLE],, what happens.
+So if we go back to our coordinate system,
+we can see that vector addition works like this.
+Let's say we have a vector here, which we can call A.
+And then we have a vector here, which we call B.
+And so one thing we might want to see here
+is, actually, what is this vector between the two?
+So here, we can just do standard vector addition.
+We know that A plus this vector C is equal to B.
+So C is equal to B minus A.
+Another question we might want to ask about vectors is--
+how big are they?
+How long are they?
+How can I understand what is the size of this vector?
+So one important thing, which we'll be using in this class
+is the conception of a norm.
+So if you recall from Euclidean distance,
+the norm of this vector in this space is going to be equal to--
+we denote it like this--
+the square root of all of its items squared.
+So this will be 3 squared plus 2 squared plus 2 squared.
+In general, this will just be denoted as the sum from i
+equals 1 to n of our n-dimensional vector
+of each element xi squared.
+And typically, we'll take the square root of that.
+Another important concept is the concept of a dot product.
+This has a relationship as to how vectors are arranged
+relative to each other.
+So there are two definitions for a dot product.
+We denote it as x dot y.
+And let's start first with the algebraic definition,
+which is just the sum from i equals 1 to n
+of the components times each other-- so xi times yi.
+This is the algebraic definition.
+So, for example, if we had this vector x, which is 3, 2, 2,
+and we had another vector--
+let's say-- let's call this y over here.
+We'll just write it over her for now.
+So y is equal to 1, 1, 1.
+All right x dot y is equal to the square root of 3 times
+1 plus--
+sorry, this is not the square root.
+Ah, I messed it up.
+So x dot y is equal to 3 times 1 plus 2 times
+1 plus 2 times 1, which is equal to 3 plus 2
+plus 2, which is equal to 7.
+There is also a geometric definition,
+where x dot y is equal to the magnitude of x, the norm, and y
+times the cosine of the angle between them.
+So, in this case, if we have two vectors here, this is x,
+and this is y.
+We denote this as theta, which is the angle between them.
+And we have this relationship for the dot product.
+And so the two definitions are equivalent to each other.
+And you can be able to use them to do
+several interesting things, which you'll see in homework 0.
+
+
+Hi.
+In this short video, we will be talking
+about planes and other low-dimensional subspaces
+of higher n-dimensional space.
+In this class, we will commonly be
+working with n-dimensional spaces, where points
+are described in n dimensions.
+For example, we can have a vector,
+x, which is equal to some, let's say, three-dimensional space--
+x1, x2, x3.
+And we denote this as living in r3.
+So oftentimes, we will be interested in vectors
+which live in a separate subspace of this higher space.
+So to explain what I mean, let me draw a picture.
+So here is r3.
+Our vector here might live over here.
+This is our vector.
+But we are actually going to be interested in those points
+which are described by some linear relationship.
+For example, we could have a plane,
+which is all the points which fit on this slice.
+In two dimensions-- color this in.
+In two dimensions, we might have a line.
+Here, this could be described by, say, the plane z equals 3.
+And x and y are free to be whatever.
+And in this case, this would be described by line y
+equals 1, for example.
+So this becomes particularly relevant in machine
+learning when we want to be able to describe the way that points
+are arranged in this space and what side of the space
+they fall on.
+For example, let's look at a simple example
+where we're trying to draw classification boundaries.
+So in this sense, we can have some points which are
+x's and some points which are o's.
+And we want to ask ourselves, what
+is the separating hyperplane?
+By hyperplane, I mean a line here,
+as in n minus 1 dimensions, that separates
+these two sets of points.
+So here we might find a line, here,
+which separates our space.
+And so on either side of this plane, a line in two dimensions
+will follow our data points.
+So here we can say, if everything less than this
+plane, on the other side of this plane, these are all o's.
+And on the other side, they're all x's.
+And that's one of the decision boundaries
+that we'll be trying to find in machine learning.
+So how do we define this line?
+And here we had just wrote this out as z equals 3
+and y equals 1.
+But there's actually a particular definition
+in which you can use to define what a plane is.
+And particularly, you want to define a linear relationship
+between two dimensions that satisfy all of these points
+being on this surface.
+So let's say that we have a plane here.
+So let's say, [? "defining ?] a [? plane." ?] If we have
+a plane in, say, three dimensions--
+let's draw it over here.
+We define this plane as having a normal,
+as in there is some vector here, which
+we are taking to be as perpendicular to all
+of the other points which fall on this plane.
+Let's call the vector of this normal theta.
+[][Additionally, this plane has an offset from the origin.]
+So it's over here-- o prime.
+This is o.
+And this is its offset.
+Let's call this x hat.
+So now we want to find all of the lines, all of the points
+which fall on this plane.
+So if we take another point, x, it will only be on this plane
+if its vector is perpendicular--
+draw it over here--
+if its vector is perpendicular to theta.
+So we can write it like this.
+So this vector here is going to be x minus x
+hat dot theta is equal to 0.
+So x dot theta minus x hat dot theta is equal to 0.
+This is always going to be a constant.
+So we can just define our plane as all
+of the points which satisfy x dot theta plus some offset--
+theta 0 is equal to 0--
+where these two are defined to be equivalently.
+And this is the definition of our plane.
+So any point which satisfies this relationship,
+this linear relationship, lies on this plane.
+End of transcript. Skip to the start.
+
+
+Hi.
+In this video, I'm going to talk about the loss
+function, gradient decent algorithm, and some tools
+on how to compute the gradients.
+The basic tool us we will use very often is the chain rule.
+Now the first two topics will be covered
+later on in the lectures, and here I
+am just giving you some basic idea,
+and some intuition about the things
+that we're going to talk about.
+OK so loss function.
+The loss function is some way for us
+to value how far is our model from the data that we have.
+OK, so let's look at some simple linear regression model, which
+is just a model that we can look,
+if we have just one-dimensional data, like this.
+OK we have some input value x, and we
+use some parameters theta 1 and theta 2,
+which we want to learn in order to predict some y.
+Let's say for example, if we want
+to have a use case that x is the height of some person,
+and y is shoe size.
+OK, so let's say that we start with the model,
+and now we have some data points that are something like that.
+OK, obviously our model can be improved,
+and we want to learn the better parameters
+for theta 1 and theta 2 to better described our data.
+So how can we do that?
+Let's first define the error.
+Now the error can be defined many ways.
+Let's for example say that we take it
+as the vertical distance between our prediction
+to the real value.
+OK, so if we write this as an equation,
+our loss function based on x and y
+will be just the vertical distance
+between the two points.
+OK, this is for this is for one example from the data,
+but we can actually take a set off examples,
+and then take the mean of them.
+And this is actually is this, right?
+Now we will learn about the actual loss
+functions that are being used.
+And don't worry about that.
+We'll see many more.
+But now, let's, for example, say that we
+have some kind of a loss function
+that looks like this, where here I mean that this is the theta,
+and this is the value of the loss function.
+Let's say that this is theta 1.
+So given this loss function, now,
+for specific parameters that they have,
+I can say that right now I'm on this place on the graph.
+And what I actually want to do is
+to minimize the loss function, right?
+If the loss function is minimized,
+it means my model best describes the data.
+OK now in simple cases, I might just
+solve it directly and find the minimum of the loss function.
+But many times, our models would be very complex,
+and we'll have a lot of data.
+And actually what we want to do is
+to use some iterative algorithm.
+The most common algorithm to use is the gradient descent.
+The gradient descent is actually very simple concept.
+What we will do is we will take the loss function
+that we get from our current set of data points.
+We will compute the gradient.
+The gradient is just the derivative
+of the function in this point.
+And we want to move against the direction of the gradient.
+OK, so if it's here we want to move a bit here,
+and we'll get to this point.
+So if we write it down, the update steps
+of the gradient descent, we will want
+to find a new value for data, which
+is the old value minus some gamma times the gradient
+of the loss function.
+OK and this gamma is what is called the learning rate.
+If it's very high, then we might move like this and diverge.
+And if it's very small, we might converge very, very slowly,
+or if our loss is actually--
+if we have some local minimums, we
+might be more prone to get stuck in them.
+This is about-- the loss function sometimes
+has been called the cost function or the race function.
+It is all the same.
+Now let's talk a bit about how to compute gradients.
+So our models will many times be pretty complex functions.
+Let's take, for example, let's say that our prediction
+model is something like that.
+e to the minus theta x plus theta 2.
+So now we want to derive that.
+Let's say in terms of--
+sorry, in terms of, theta 1.
+OK so what the chain rule tells us, let's write it down here.
+But if I have some function that I
+want to derive according to x, I can actually
+derive it like that in part.
+OK, this is all.
+So if I want to derive this function now,
+I can actually write something like this.
+OK, and what is this z?
+So I will define z just to be this part of the equation.
+OK and now actually I have this linear formula,
+and on top of that I have this more complex function,
+which is actually called the sigmoid function,
+and we will see it later on in the class.
+So I can actually look at my model
+as if I'm getting some input x, and then I'm
+applying some linear transformation
+on it, which gives me z.
+And then I'm applying that sigmoid function
+to get my prediction.
+So now all we need to do is to solve those two derivatives.
+OK now, obviously, if we--
+let's first do actually the z.
+Let's start with a simple one.
+dz to d theta 1, which will be only x.
+And now I need to compute dy to dz.
+So actually what I want to compute now is this guy.
+OK, and this is actually, as I said, is a sigmoid function,
+and you can compute it yourself, but what you will get
+is that the derivative is this minus z squared.
+OK, so now I can just put those things together,
+and use the chain rule to get my final derivative.
+Just x times that sigmoid derivative squared.
+OK, now I can plug in back z to get my derivative.
+If I want to do the same thing for theta 2,
+then it's simply this.
+1 plus, yep.
+OK, so this is the chain rule, and this is a very useful tool
+to derive eyes more complex functions,
+and we will surely need to use it for deep learning later.
+And that's it.
+
+![](C:/Users/qp/Pictures/Screenshots/1. Brief Review of Vectors, Planes, and Optimization - 1.png)
+![](C:/Users/qp/Pictures/Screenshots/1. Brief Review of Vectors, Planes, and Optimization - 2.png)
+![](C:/Users/qp/Pictures/Screenshots/1. Brief Review of Vectors, Planes, and Optimization - 3.png)
+![](C:/Users/qp/Pictures/Screenshots/1. Brief Review of Vectors, Planes, and Optimization - 4.png)
+
+
+
+
+
+## Course  /  Unit 0. Brief Prerequisite Reviews, Homework 0, and Project 0  /  Homework 0
+
+# 1. Objective
+
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 1. Objective.png)
+
+
+
+
+# 2. Sums and Products
+
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 2. Sums and Products - 1.png)
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 2. Sums and Products - 2.png)
+
+
+
+
+
+
+# 3. Function Properties
+
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 3. Function Properties - 1.png)
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 3. Function Properties - 2.png)
+
+
+
+
+
+
+# 4. Points and Vectors
+
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 4. Points and Vectors - 1.png)
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 4. Points and Vectors - 2.png)
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 4. Points and Vectors - 3.png)
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 4. Points and Vectors - 4.png)
+![](C:/Users/qp/Pictures/Screenshots/MITx 6.86x - 4. Points and Vectors - 5.png)
+
+
+
+
+
+
+# 5. Planes
+
+
+
+
+
