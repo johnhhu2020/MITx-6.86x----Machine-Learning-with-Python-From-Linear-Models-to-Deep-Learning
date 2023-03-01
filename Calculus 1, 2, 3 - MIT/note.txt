@@ -1,0 +1,20 @@
+Note on calculus. Let me connect these special matrices to calculus. The vector x changes to a function x(t). The differences Ax become the derivative dx/dt = b(t). In the inverse direction, the sums A- 1 b become the integral of b(t). Sums of differences are like integrals of derivatives.
+
+
+WHY "The differences Ax become the derivative dx/dt = b(t)."??? What does taking the derivative of matrix t from function x(t) gives you 
+
+
+
+A*x = b
+
+[[ 1  0  0],      [x_1,      [[ x_1            ],       [b_1, 
+ [-1  1  0],       x_2,       [-x_1 + x_2      ],        b_2,
+ [ 0 -1  1]]       x_3]       [     - x_2 + x_3]]        b_3]
+A                 x          A*x                        b
+
+How to take the derivative of A from function x(A) or A*x???  Removing the variable like we did in linear functions???
+
+
+
+
+Read the book
